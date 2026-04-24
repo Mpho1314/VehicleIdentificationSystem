@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo17.controller.AdminController"
+            prefWidth="1000" prefHeight="680"
+            styleClass="border-pane">
+
+    <top>
+        <VBox>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
+                <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
+                <Label text="🔐 Admin — User Access Management" styleClass="top-bar-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
+            </HBox>
+
+            <HBox style="-fx-background-color: #34495e; -fx-padding: 6 16;">
+                <Label fx:id="codeLabel" text="Select a user to view their access code"
+                       style="-fx-text-fill: #ffeb3b; -fx-font-size: 12px; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.63">
+            <VBox spacing="8" style="-fx-padding: 12;">
+                <Label text="Registered System Users" styleClass="section-label"/>
+
+                <HBox spacing="8">
+                    <Label text="🟢 GRANTED" style="-fx-text-fill: #4a7c59; -fx-font-size: 11px;"/>
+                    <Label text="🔴 DENIED" style="-fx-text-fill: #c0392b; -fx-font-size: 11px;"/>
+                    <Label text="— Click a user to see their access code" styleClass="hint-label"/>
+                </HBox>
+
+                <TableView fx:id="userTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="40"/>
+                        <TableColumn fx:id="colUsername" text="Username" prefWidth="120"/>
+                        <TableColumn fx:id="colCode" text="Access Code" prefWidth="110"/>
+                        <TableColumn fx:id="colRole" text="Role" prefWidth="100"/>
+                        <TableColumn fx:id="colAccess" text="Access" prefWidth="80"/>
+                        <TableColumn fx:id="colDate" text="Created" prefWidth="95"/>
+                    </columns>
+                </TableView>
+
+                <ProgressBar fx:id="progressBar" prefWidth="400" prefHeight="14"/>
+
+                <HBox spacing="8">
+                    <Button fx:id="grantButton" text="✅ Grant Access" onAction="#handleGrant" styleClass="success-button"/>
+                    <Button fx:id="denyButton" text="🚫 Deny Access" onAction="#handleDeny" styleClass="danger-button"/>
+                    <Button text="🗑 Delete" onAction="#handleDelete" styleClass="secondary-button"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="12" style="-fx-padding: 20;">
+                <Label text="Create New User" styleClass="section-label"/>
+                <Separator/>
+
+                <Label text="Username *"/>
+                <TextField fx:id="usernameField" promptText="e.g. workshop_user1"/>
+
+                <Label text="Password *"/>
+                <PasswordField fx:id="passwordField" promptText="Enter password"/>
+
+                <Label text="Role / Module *"/>
+                <ComboBox fx:id="roleCombo" prefWidth="220"/>
+
+                <Separator/>
+
+                <Label text="ℹ The system will auto-generate a unique Access Code." styleClass="hint-label"/>
+                <Label text="Share the Access Code with the user so they can log in." styleClass="hint-label"/>
+
+                <Button fx:id="addButton" text="➕ Create User &amp; Generate Access Code"
+                        onAction="#handleAddUser" prefWidth="280" styleClass="primary-button"/>
+
+                <Separator/>
+
+                <Label text="Module Access Guide" styleClass="section-label"/>
+
+                <VBox spacing="4" styleClass="card">
+                    <Label text="🔧 WORKSHOP  — Vehicle registration &amp; service records"/>
+                    <Label text="👤 CUSTOMER  — Vehicle condition &amp; owner queries"/>
+                    <Label text="👮 POLICE    — Vehicle reports &amp; violations"/>
+                    <Label text="🛡 INSURANCE — Vehicle insurance tracking"/>
+                </VBox>
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar">
+            <Label fx:id="statusLabel" text="Ready"/>
+        </HBox>
+    </bottom>
+</BorderPane>

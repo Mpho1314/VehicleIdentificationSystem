@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo17.controller.CustomerController"
+            prefWidth="960" prefHeight="620"
+
+            styleClass="border-pane">
+
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
+            <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
+            <Label text="👤 Customer Management" styleClass="top-bar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.62">
+            <VBox spacing="8" style="-fx-padding: 12;">
+                <Label text="All Customers" styleClass="section-label"/>
+                <TableView fx:id="customerTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colName" text="Name" prefWidth="130"/>
+                        <TableColumn fx:id="colPhone" text="Phone" prefWidth="110"/>
+                        <TableColumn fx:id="colEmail" text="Email" prefWidth="160"/>
+                        <TableColumn fx:id="colAddress" text="Address" prefWidth="160"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="10" style="-fx-padding: 16;">
+                <Label text="Customer Details" styleClass="section-label"/>
+
+                <Label text="Full Name *"/>
+                <TextField fx:id="nameField" promptText="e.g. Thabo Mokoena"/>
+
+                <Label text="Phone"/>
+                <TextField fx:id="phoneField" promptText="e.g. +26622100001"/>
+
+                <Label text="Email *"/>
+                <TextField fx:id="emailField" promptText="e.g. user@email.com"/>
+
+                <Label text="Address"/>
+                <TextArea fx:id="addressField" prefHeight="70" promptText="Street, City, Country"/>
+
+                <HBox spacing="8">
+                    <Button text="💾 Save" onAction="#handleSave" styleClass="primary-button"/>
+                    <Button text="🗑 Delete" onAction="#handleDelete" styleClass="danger-button"/>
+                    <Button text="✕ Clear" onAction="#handleClear" styleClass="secondary-button"/>
+                </HBox>
+
+                <Label fx:id="statusLabel" styleClass="status-label"/>
+            </VBox>
+        </SplitPane>
+    </center>
+</BorderPane>

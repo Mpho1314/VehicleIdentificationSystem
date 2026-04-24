@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.demo17.controller.PaginationDemoController"
+
+      style="-fx-background-color: #f5f7fa; -fx-padding: 20px;">
+
+    <children>
+        <MenuBar>
+            <Menu text="File">
+                <MenuItem text="Exit" onAction="#handleExit"/>
+            </Menu>
+            <Menu text="View">
+                <MenuItem text="Refresh"/>
+                <MenuItem text="Settings"/>
+            </Menu>
+            <Menu text="Help">
+                <MenuItem text="About"/>
+            </Menu>
+        </MenuBar>
+
+        <Label text="Vehicle Records (25 Records)" styleClass="title-label"/>
+
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="400" styleClass="scroll-pane">
+            <content>
+                <VBox>
+                    <Pagination fx:id="pagination"/>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <Label text="Loading Progress:" styleClass="label"/>
+            <ProgressBar fx:id="progressBar" prefWidth="300"/>
+            <ProgressIndicator fx:id="progressIndicator"/>
+        </HBox>
+
+        <HBox alignment="CENTER">
+            <Button fx:id="demoButton" text="Click Me - Visual Effects Demo" styleClass="primary-button"/>
+        </HBox>
+
+        <Label fx:id="statusLabel" styleClass="status-label"/>
+    </children>
+</VBox>

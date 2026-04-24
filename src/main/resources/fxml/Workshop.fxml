@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo17.controller.WorkshopController"
+            prefWidth="960" prefHeight="640"
+
+            styleClass="border-pane">
+
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
+            <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
+            <Label text="🔧 Workshop — Service Records" styleClass="top-bar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.62">
+            <VBox spacing="8" style="-fx-padding: 12;">
+                <Label text="All Service Records" styleClass="section-label"/>
+                <TableView fx:id="serviceTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colReg" text="Reg. No." prefWidth="120"/>
+                        <TableColumn fx:id="colType" text="Service Type" prefWidth="130"/>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="90"/>
+                        <TableColumn fx:id="colCost" text="Cost (M)" prefWidth="80"/>
+                        <TableColumn fx:id="colDesc" text="Description" prefWidth="180"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="10" style="-fx-padding: 16;">
+                <Label text="New Service Record" styleClass="section-label"/>
+
+                <Label text="Vehicle *"/>
+                <ComboBox fx:id="vehicleCombo" prefWidth="220" promptText="Select vehicle"/>
+
+                <Label text="Service Type *"/>
+                <ComboBox fx:id="serviceTypeCombo" prefWidth="220" promptText="Select type"/>
+
+                <Label text="Cost (M) *"/>
+                <TextField fx:id="costField" promptText="e.g. 350.00"/>
+
+                <Label text="Service Date"/>
+                <DatePicker fx:id="datePicker"/>
+
+                <Label text="Description"/>
+                <TextArea fx:id="descField" prefHeight="80" promptText="Service details..."/>
+
+                <HBox spacing="8">
+                    <Button text="💾 Save" onAction="#handleSave" styleClass="primary-button"/>
+                    <Button text="✕ Clear" onAction="#handleClear" styleClass="secondary-button"/>
+                </HBox>
+
+                <Label fx:id="statusLabel" styleClass="status-label"/>
+            </VBox>
+        </SplitPane>
+    </center>
+</BorderPane>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo17.controller.PoliceController"
+            prefWidth="1000" prefHeight="680"
+
+            styleClass="border-pane">
+
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
+            <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
+            <Label text="👮 Police Module" styleClass="top-bar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
+        </HBox>
+    </top>
+
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Police Reports">
+                <SplitPane dividerPositions="0.60">
+                    <VBox spacing="8" style="-fx-padding: 12;">
+                        <Label text="All Police Reports" styleClass="section-label"/>
+                        <TableView fx:id="reportTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colRepReg" text="Reg. No." prefWidth="110"/>
+                                <TableColumn fx:id="colRepType" text="Type" prefWidth="90"/>
+                                <TableColumn fx:id="colRepDate" text="Date" prefWidth="90"/>
+                                <TableColumn fx:id="colRepOfficer" text="Officer" prefWidth="110"/>
+                                <TableColumn fx:id="colRepDesc" text="Details" prefWidth="180"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="10" style="-fx-padding: 16;">
+                        <Label text="New Report" styleClass="section-label"/>
+                        <Label text="Vehicle *"/>
+                        <ComboBox fx:id="repVehicleCombo" prefWidth="220" promptText="Select vehicle"/>
+                        <Label text="Report Type *"/>
+                        <ComboBox fx:id="repTypeCombo" prefWidth="220" promptText="Select type"/>
+                        <Label text="Officer Name *"/>
+                        <TextField fx:id="repOfficerField" promptText="Officer full name"/>
+                        <Label text="Date"/>
+                        <DatePicker fx:id="repDatePicker"/>
+                        <Label text="Description"/>
+                        <TextArea fx:id="repDescField" prefHeight="80" promptText="Report details..."/>
+                        <Button text="💾 Save Report" onAction="#handleSaveReport" styleClass="primary-button"/>
+                    </VBox>
+                </SplitPane>
+            </Tab>
+
+            <Tab text="Violations">
+                <SplitPane dividerPositions="0.60">
+                    <VBox spacing="8" style="-fx-padding: 12;">
+                        <Label text="All Violations" styleClass="section-label"/>
+                        <TableView fx:id="violationTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colVioReg" text="Reg. No." prefWidth="110"/>
+                                <TableColumn fx:id="colVioType" text="Type" prefWidth="120"/>
+                                <TableColumn fx:id="colVioDate" text="Date" prefWidth="90"/>
+                                <TableColumn fx:id="colVioFine" text="Fine (M)" prefWidth="80"/>
+                                <TableColumn fx:id="colVioStatus" text="Status" prefWidth="80"/>
+                            </columns>
+                        </TableView>
+                    </VBox>
+
+                    <VBox spacing="10" style="-fx-padding: 16;">
+                        <Label text="New Violation" styleClass="section-label"/>
+                        <Label text="Vehicle *"/>
+                        <ComboBox fx:id="vioVehicleCombo" prefWidth="220" promptText="Select vehicle"/>
+                        <Label text="Violation Type *"/>
+                        <TextField fx:id="vioTypeField" promptText="e.g. Speeding"/>
+                        <Label text="Fine Amount (M) *"/>
+                        <TextField fx:id="vioFineField" promptText="e.g. 500.00"/>
+                        <Label text="Status"/>
+                        <ComboBox fx:id="vioStatusCombo" prefWidth="220"/>
+                        <Label text="Date"/>
+                        <DatePicker fx:id="vioDatePicker"/>
+                        <Button text="💾 Save Violation" onAction="#handleSaveViolation" styleClass="primary-button"/>
+                    </VBox>
+                </SplitPane>
+            </Tab>
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="status-bar">
+            <Label fx:id="statusLabel" text="Ready"/>
+        </HBox>
+    </bottom>
+</BorderPane>

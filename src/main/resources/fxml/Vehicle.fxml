@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo17.controller.VehicleController"
+            prefWidth="960" prefHeight="640"
+
+            styleClass="border-pane">
+
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
+            <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
+            <Label text="🚗 Vehicle Management" styleClass="top-bar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.62">
+            <VBox spacing="8" style="-fx-padding: 12;">
+                <Label text="All Vehicles" styleClass="section-label"/>
+                <TableView fx:id="vehicleTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colReg" text="Reg. No." prefWidth="120"/>
+                        <TableColumn fx:id="colMake" text="Make" prefWidth="80"/>
+                        <TableColumn fx:id="colModel" text="Model" prefWidth="90"/>
+                        <TableColumn fx:id="colYear" text="Year" prefWidth="55"/>
+                        <TableColumn fx:id="colColor" text="Color" prefWidth="70"/>
+                        <TableColumn fx:id="colOwner" text="Owner" prefWidth="110"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <VBox spacing="10" style="-fx-padding: 16;">
+                <Label text="Vehicle Details" styleClass="section-label"/>
+
+                <Label text="Registration Number *"/>
+                <TextField fx:id="regField" promptText="e.g. LSO-001-AA"/>
+
+                <Label text="Make *"/>
+                <TextField fx:id="makeField" promptText="e.g. Toyota"/>
+
+                <Label text="Model *"/>
+                <TextField fx:id="modelField" promptText="e.g. Hilux"/>
+
+                <Label text="Year *"/>
+                <TextField fx:id="yearField" promptText="e.g. 2022"/>
+
+                <Label text="Color"/>
+                <TextField fx:id="colorField" promptText="e.g. White"/>
+
+                <Label text="Owner"/>
+                <ComboBox fx:id="ownerCombo" prefWidth="220" promptText="Select owner"/>
+
+                <HBox spacing="8">
+                    <Button text="💾 Save" onAction="#handleSave" styleClass="primary-button"/>
+                    <Button text="🗑 Delete" onAction="#handleDelete" styleClass="danger-button"/>
+                    <Button text="✕ Clear" onAction="#handleClear" styleClass="secondary-button"/>
+                </HBox>
+
+                <Label fx:id="statusLabel" styleClass="status-label"/>
+            </VBox>
+        </SplitPane>
+    </center>
+</BorderPane>
