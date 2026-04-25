@@ -5,6 +5,8 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.demo17.controller.DashboardController"
+            styleClass="root-pane"
+            stylesheets="/css/style.css"
             prefWidth="1000" prefHeight="700">
 
     <!-- TOP -->
@@ -15,135 +17,86 @@
                     <MenuItem text="User Access Management" onAction="#menuAdmin"/>
                 </Menu>
                 <Menu text="Help">
-                    <MenuItem text="About"  onAction="#menuAbout"/>
+                    <MenuItem text="About" onAction="#menuAbout"/>
                     <MenuItem text="Logout" onAction="#menuLogout"/>
                 </Menu>
             </MenuBar>
 
-            <HBox spacing="12" alignment="CENTER_LEFT"
-                  style="-fx-background-color: #1b4332; -fx-padding: 18 28;">
-                <Label text="Vehicle Identification System"
-                       style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
+                <Label text="Vehicle Identification System" styleClass="top-bar-title"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Label text="Dashboard"
-                       style="-fx-text-fill: #95d5b2; -fx-font-size: 14px;"/>
+                <Label text="Dashboard" styleClass="top-bar-subtitle"/>
             </HBox>
         </VBox>
     </top>
 
     <!-- CENTER -->
     <center>
-        <VBox alignment="CENTER" spacing="0"
-              style="-fx-background-color: #f0f4f0;">
+        <VBox alignment="TOP_CENTER" spacing="0" styleClass="dashboard-root">
 
-            <!-- Green banner -->
-            <VBox alignment="CENTER" spacing="8"
-                  style="-fx-background-color: #2d6a4f; -fx-padding: 40 0 50 0;">
-                <Label text="Welcome to VIS"
-                       style="-fx-text-fill: white; -fx-font-size: 32px; -fx-font-weight: bold;"/>
-                <Label text="Select a module below to get started"
-                       style="-fx-text-fill: #95d5b2; -fx-font-size: 15px;"/>
+            <!-- Small welcome banner -->
+            <VBox alignment="CENTER" spacing="8" styleClass="welcome-banner-small">
+                <Label text="Welcome to VIS" styleClass="welcome-title-small"/>
+                <Label text="Select a module below to get started" styleClass="welcome-subtitle-small"/>
             </VBox>
 
-            <!-- Cards row — overlaps banner slightly -->
-            <HBox spacing="20" alignment="CENTER"
-                  style="-fx-padding: -40 40 0 40;">
+            <!-- Cards row - larger cards, no emojis -->
+            <HBox spacing="30" alignment="CENTER" styleClass="cards-row-large">
 
-                <!-- Vehicles -->
-                <VBox alignment="CENTER" spacing="12"
-                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-radius: 14; -fx-border-color: #b7d4bf; -fx-border-width: 1; -fx-padding: 36 28; -fx-pref-width: 180; -fx-pref-height: 220; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4); -fx-cursor: hand;"
-                      onMouseClicked="#menuVehicles">
-                    <Label text="VEHICLES"
-                           style="-fx-text-fill: #1b4332; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                    <Separator/>
-                    <Label text="Manage vehicle records and registry"
-                           style="-fx-text-fill: #52796f; -fx-font-size: 11px; -fx-wrap-text: true; -fx-text-alignment: center;"
-                           maxWidth="150"/>
-                    <Button text="Open" onAction="#menuVehicles"
-                            style="-fx-background-color: #2d6a4f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 6 20; -fx-cursor: hand;"/>
+                <!-- Vehicles - LARGER -->
+                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuVehicles">
+                    <Label text="VEHICLES" styleClass="card-title-large"/>
+                    <Separator styleClass="card-separator-large"/>
+                    <Label text="Manage vehicle records and registry" styleClass="card-subtitle-large"/>
+                    <Button text="Open Module" onAction="#menuVehicles" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Customers -->
-                <VBox alignment="CENTER" spacing="12"
-                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-radius: 14; -fx-border-color: #b7d4bf; -fx-border-width: 1; -fx-padding: 36 28; -fx-pref-width: 180; -fx-pref-height: 220; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4); -fx-cursor: hand;"
-                      onMouseClicked="#menuCustomers">
-                    <Label text="CUSTOMERS"
-                           style="-fx-text-fill: #1b4332; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                    <Separator/>
-                    <Label text="View and manage vehicle owners"
-                           style="-fx-text-fill: #52796f; -fx-font-size: 11px; -fx-wrap-text: true; -fx-text-alignment: center;"
-                           maxWidth="150"/>
-                    <Button text="Open" onAction="#menuCustomers"
-                            style="-fx-background-color: #2d6a4f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 6 20; -fx-cursor: hand;"/>
+                <!-- Customers - LARGER -->
+                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuCustomers">
+                    <Label text="CUSTOMERS" styleClass="card-title-large"/>
+                    <Separator styleClass="card-separator-large"/>
+                    <Label text="View and manage vehicle owners" styleClass="card-subtitle-large"/>
+                    <Button text="Open Module" onAction="#menuCustomers" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Workshop -->
-                <VBox alignment="CENTER" spacing="12"
-                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-radius: 14; -fx-border-color: #b7d4bf; -fx-border-width: 1; -fx-padding: 36 28; -fx-pref-width: 180; -fx-pref-height: 220; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4); -fx-cursor: hand;"
-                      onMouseClicked="#menuWorkshop">
-                    <Label text="WORKSHOP"
-                           style="-fx-text-fill: #1b4332; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                    <Separator/>
-                    <Label text="Service records and maintenance"
-                           style="-fx-text-fill: #52796f; -fx-font-size: 11px; -fx-wrap-text: true; -fx-text-alignment: center;"
-                           maxWidth="150"/>
-                    <Button text="Open" onAction="#menuWorkshop"
-                            style="-fx-background-color: #2d6a4f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 6 20; -fx-cursor: hand;"/>
+                <!-- Workshop - LARGER -->
+                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuWorkshop">
+                    <Label text="WORKSHOP" styleClass="card-title-large"/>
+                    <Separator styleClass="card-separator-large"/>
+                    <Label text="Service records and maintenance" styleClass="card-subtitle-large"/>
+                    <Button text="Open Module" onAction="#menuWorkshop" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Police -->
-                <VBox alignment="CENTER" spacing="12"
-                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-radius: 14; -fx-border-color: #b7d4bf; -fx-border-width: 1; -fx-padding: 36 28; -fx-pref-width: 180; -fx-pref-height: 220; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4); -fx-cursor: hand;"
-                      onMouseClicked="#menuPolice">
-                    <Label text="POLICE"
-                           style="-fx-text-fill: #1b4332; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                    <Separator/>
-                    <Label text="Reports, violations and fines"
-                           style="-fx-text-fill: #52796f; -fx-font-size: 11px; -fx-wrap-text: true; -fx-text-alignment: center;"
-                           maxWidth="150"/>
-                    <Button text="Open" onAction="#menuPolice"
-                            style="-fx-background-color: #2d6a4f; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 6 20; -fx-cursor: hand;"/>
+                <!-- Police - LARGER -->
+                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuPolice">
+                    <Label text="POLICE" styleClass="card-title-large"/>
+                    <Separator styleClass="card-separator-large"/>
+                    <Label text="Reports, violations and fines" styleClass="card-subtitle-large"/>
+                    <Button text="Open Module" onAction="#menuPolice" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Admin -->
-                <VBox alignment="CENTER" spacing="12"
-                      style="-fx-background-color: #1b4332; -fx-background-radius: 14; -fx-border-radius: 14; -fx-border-color: #1b4332; -fx-border-width: 1; -fx-padding: 36 28; -fx-pref-width: 180; -fx-pref-height: 220; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 12, 0, 0, 4); -fx-cursor: hand;"
-                      onMouseClicked="#menuAdmin">
-                    <Label text="ADMIN"
-                           style="-fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold;"/>
-                    <Separator style="-fx-background-color: #2d6a4f;"/>
-                    <Label text="User access and permissions"
-                           style="-fx-text-fill: #95d5b2; -fx-font-size: 11px; -fx-wrap-text: true; -fx-text-alignment: center;"
-                           maxWidth="150"/>
-                    <Button text="Open" onAction="#menuAdmin"
-                            style="-fx-background-color: #40916c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 6; -fx-padding: 6 20; -fx-cursor: hand;"/>
+                <!-- Admin - LARGER -->
+                <VBox alignment="CENTER" spacing="15" styleClass="module-card-admin-large" onMouseClicked="#menuAdmin">
+                    <Label text="ADMIN" styleClass="card-title-admin-large"/>
+                    <Separator styleClass="card-separator-admin-large"/>
+                    <Label text="User access and permissions" styleClass="card-subtitle-admin-large"/>
+                    <Button text="Open Module" onAction="#menuAdmin" styleClass="card-button-admin-large"/>
                 </VBox>
-
             </HBox>
 
             <!-- Stats row -->
-            <HBox spacing="0" alignment="CENTER"
-                  style="-fx-padding: 50 40 0 40;">
-                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS"
-                      style="-fx-background-color: #d8f3dc; -fx-padding: 20; -fx-background-radius: 10 0 0 10;">
-                    <Label text="Vehicle Registry"
-                           style="-fx-text-fill: #1b4332; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <Label text="Track all registered vehicles in Lesotho"
-                           style="-fx-text-fill: #52796f; -fx-font-size: 11px;"/>
+            <HBox spacing="0" alignment="CENTER" styleClass="stats-row-centered">
+                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS" styleClass="stat-box-left">
+                    <Label text="Vehicle Registry" styleClass="stat-title"/>
+                    <Label text="Track all registered vehicles in Lesotho" styleClass="stat-subtitle"/>
                 </VBox>
-                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS"
-                      style="-fx-background-color: #b7d4bf; -fx-padding: 20;">
-                    <Label text="Police Integration"
-                           style="-fx-text-fill: #1b4332; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <Label text="Instant access to violation records"
-                           style="-fx-text-fill: #52796f; -fx-font-size: 11px;"/>
+                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS" styleClass="stat-box-center">
+                    <Label text="Police Integration" styleClass="stat-title"/>
+                    <Label text="Instant access to violation records" styleClass="stat-subtitle"/>
                 </VBox>
-                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS"
-                      style="-fx-background-color: #95d5b2; -fx-padding: 20; -fx-background-radius: 0 10 10 0;">
-                    <Label text="Owner Management"
-                           style="-fx-text-fill: #1b4332; -fx-font-weight: bold; -fx-font-size: 13px;"/>
-                    <Label text="Customer and ownership records"
-                           style="-fx-text-fill: #2d6a4f; -fx-font-size: 11px;"/>
+                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS" styleClass="stat-box-right">
+                    <Label text="Owner Management" styleClass="stat-title"/>
+                    <Label text="Customer and ownership records" styleClass="stat-subtitle"/>
                 </VBox>
             </HBox>
 
@@ -153,13 +106,10 @@
 
     <!-- BOTTOM -->
     <bottom>
-        <HBox spacing="12"
-              style="-fx-background-color: #1b4332; -fx-padding: 12 24;">
-            <Label text="System Ready"
-                   style="-fx-text-fill: #95d5b2; -fx-font-weight: bold;"/>
+        <HBox spacing="12" styleClass="status-bar">
+            <Label text="System Ready" styleClass="status-text"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Label text="Vehicle Identification System  |  Limkokwing University  |  OOP II 2026"
-                   style="-fx-text-fill: #52796f; -fx-font-size: 11px;"/>
+            <Label text="Vehicle Identification System | Limkokwing University | OOP II 2026" style="-fx-text-fill: #5a7a9e; -fx-font-size: 11px;"/>
         </HBox>
     </bottom>
 
