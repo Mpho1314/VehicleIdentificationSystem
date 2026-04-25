@@ -5,14 +5,15 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.demo17.controller.PoliceController"
-            prefWidth="1000" prefHeight="680"
-
-            styleClass="border-pane">
+            prefWidth="1000" prefHeight="680">
 
     <top>
-        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
-            <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
-            <Label text="👮 Police Module" styleClass="top-bar-title"/>
+        <HBox spacing="12" alignment="CENTER_LEFT"
+              style="-fx-background-color: #1b4332; -fx-padding: 14 20;">
+            <Button text="Back to Dashboard" onAction="#goBack"
+                    style="-fx-background-color: #40916c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+            <Label text="Police Module"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
             <Region HBox.hgrow="ALWAYS"/>
             <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
         </HBox>
@@ -20,66 +21,104 @@
 
     <center>
         <TabPane tabClosingPolicy="UNAVAILABLE">
+
+            <!-- REPORTS TAB -->
             <Tab text="Police Reports">
-                <SplitPane dividerPositions="0.60">
-                    <VBox spacing="8" style="-fx-padding: 12;">
-                        <Label text="All Police Reports" styleClass="section-label"/>
+                <SplitPane dividerPositions="0.58">
+
+                    <VBox spacing="8" style="-fx-padding: 14;">
+                        <Label text="All Police Reports"
+                               style="-fx-text-fill: #1b4332; -fx-font-size: 15px; -fx-font-weight: bold;"/>
                         <TableView fx:id="reportTable" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="colRepReg" text="Reg. No." prefWidth="110"/>
-                                <TableColumn fx:id="colRepType" text="Type" prefWidth="90"/>
-                                <TableColumn fx:id="colRepDate" text="Date" prefWidth="90"/>
-                                <TableColumn fx:id="colRepOfficer" text="Officer" prefWidth="110"/>
-                                <TableColumn fx:id="colRepDesc" text="Details" prefWidth="180"/>
+                                <TableColumn fx:id="colRepReg"     text="Reg. No."  prefWidth="110"/>
+                                <TableColumn fx:id="colRepType"    text="Type"      prefWidth="100"/>
+                                <TableColumn fx:id="colRepDate"    text="Date"      prefWidth="100"/>
+                                <TableColumn fx:id="colRepOfficer" text="Officer"   prefWidth="120"/>
+                                <TableColumn fx:id="colRepDesc"    text="Details"   prefWidth="180"/>
                             </columns>
                         </TableView>
                     </VBox>
 
-                    <VBox spacing="10" style="-fx-padding: 16;">
-                        <Label text="New Report" styleClass="section-label"/>
-                        <Label text="Vehicle *"/>
-                        <ComboBox fx:id="repVehicleCombo" prefWidth="220" promptText="Select vehicle"/>
-                        <Label text="Report Type *"/>
-                        <ComboBox fx:id="repTypeCombo" prefWidth="220" promptText="Select type"/>
-                        <Label text="Officer Name *"/>
-                        <TextField fx:id="repOfficerField" promptText="Officer full name"/>
-                        <Label text="Date"/>
+                    <VBox spacing="10" style="-fx-padding: 16; -fx-background-color: #f8faf8;">
+                        <Label text="New Police Report"
+                               style="-fx-text-fill: #1b4332; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+                        <Label text="Vehicle *" style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="repVehicleCombo" prefWidth="260"
+                                  promptText="Select vehicle"/>
+
+                        <Label text="Report Type *" style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="repTypeCombo" prefWidth="260"
+                                  promptText="Select report type"/>
+
+                        <Label text="Officer Name * (letters only)"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <TextField fx:id="repOfficerField"
+                                   promptText="e.g. Thabo Mokoena"/>
+
+                        <Label text="Date (today only)"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
                         <DatePicker fx:id="repDatePicker"/>
-                        <Label text="Description"/>
-                        <TextArea fx:id="repDescField" prefHeight="80" promptText="Report details..."/>
-                        <Button text="💾 Save Report" onAction="#handleSaveReport" styleClass="primary-button"/>
+
+                        <Label text="Description"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <TextArea fx:id="repDescField" prefHeight="80"
+                                  promptText="Report details..."/>
+
+                        <Button text="Save Report" onAction="#handleSaveReport"
+                                style="-fx-background-color: #1b4332; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 6; -fx-cursor: hand;"/>
                     </VBox>
                 </SplitPane>
             </Tab>
 
+            <!-- VIOLATIONS TAB -->
             <Tab text="Violations">
-                <SplitPane dividerPositions="0.60">
-                    <VBox spacing="8" style="-fx-padding: 12;">
-                        <Label text="All Violations" styleClass="section-label"/>
+                <SplitPane dividerPositions="0.58">
+
+                    <VBox spacing="8" style="-fx-padding: 14;">
+                        <Label text="All Violations"
+                               style="-fx-text-fill: #1b4332; -fx-font-size: 15px; -fx-font-weight: bold;"/>
                         <TableView fx:id="violationTable" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="colVioReg" text="Reg. No." prefWidth="110"/>
-                                <TableColumn fx:id="colVioType" text="Type" prefWidth="120"/>
-                                <TableColumn fx:id="colVioDate" text="Date" prefWidth="90"/>
-                                <TableColumn fx:id="colVioFine" text="Fine (M)" prefWidth="80"/>
-                                <TableColumn fx:id="colVioStatus" text="Status" prefWidth="80"/>
+                                <TableColumn fx:id="colVioReg"    text="Reg. No."    prefWidth="110"/>
+                                <TableColumn fx:id="colVioType"   text="Type"        prefWidth="130"/>
+                                <TableColumn fx:id="colVioDate"   text="Date"        prefWidth="100"/>
+                                <TableColumn fx:id="colVioFine"   text="Fine (LSL)"  prefWidth="100"/>
+                                <TableColumn fx:id="colVioStatus" text="Status"      prefWidth="80"/>
                             </columns>
                         </TableView>
                     </VBox>
 
-                    <VBox spacing="10" style="-fx-padding: 16;">
-                        <Label text="New Violation" styleClass="section-label"/>
-                        <Label text="Vehicle *"/>
-                        <ComboBox fx:id="vioVehicleCombo" prefWidth="220" promptText="Select vehicle"/>
-                        <Label text="Violation Type *"/>
-                        <TextField fx:id="vioTypeField" promptText="e.g. Speeding"/>
-                        <Label text="Fine Amount (M) *"/>
-                        <TextField fx:id="vioFineField" promptText="e.g. 500.00"/>
-                        <Label text="Status"/>
-                        <ComboBox fx:id="vioStatusCombo" prefWidth="220"/>
-                        <Label text="Date"/>
+                    <VBox spacing="10" style="-fx-padding: 16; -fx-background-color: #f8faf8;">
+                        <Label text="New Violation"
+                               style="-fx-text-fill: #1b4332; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+                        <Label text="Vehicle *"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="vioVehicleCombo" prefWidth="260"
+                                  promptText="Select vehicle"/>
+
+                        <Label text="Violation Type *"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="vioTypeCombo" prefWidth="260"
+                                  promptText="Select violation type"/>
+
+                        <Label text="Fine Amount (LSL) *"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <TextField fx:id="vioFineField"
+                                   promptText="e.g. 500.00"/>
+
+                        <Label text="Status"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="vioStatusCombo" prefWidth="260"/>
+
+                        <Label text="Date (today only)"
+                               style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
                         <DatePicker fx:id="vioDatePicker"/>
-                        <Button text="💾 Save Violation" onAction="#handleSaveViolation" styleClass="primary-button"/>
+
+                        <Button text="Save Violation" onAction="#handleSaveViolation"
+                                style="-fx-background-color: #1b4332; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 6; -fx-cursor: hand;"/>
                     </VBox>
                 </SplitPane>
             </Tab>
@@ -87,8 +126,9 @@
     </center>
 
     <bottom>
-        <HBox styleClass="status-bar">
-            <Label fx:id="statusLabel" text="Ready"/>
+        <HBox style="-fx-background-color: #1b4332; -fx-padding: 10 20;">
+            <Label fx:id="statusLabel" text="Ready"
+                   style="-fx-text-fill: #95d5b2; -fx-font-size: 12px;"/>
         </HBox>
     </bottom>
 </BorderPane>

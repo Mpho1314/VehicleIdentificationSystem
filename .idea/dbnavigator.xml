@@ -23,6 +23,12 @@
       <assistant-state connection-id="a5b78980-c4ac-40b2-8845-c83eab868ef4" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
         <tools />
       </assistant-state>
+      <assistant-state connection-id="d64ef52f-9dce-46c3-9e24-83bb93cbbe7c" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
+        <tools />
+      </assistant-state>
+      <assistant-state connection-id="d64ef52f-9dce-46c3-9e24-83bb93cbbe7c" assistant-type="PUBLIC" default-profile-name="" selected-chat-id="" availability="AVAILABLE" acknowledgement="NONE" selected="true">
+        <tools />
+      </assistant-state>
       <assistant-state connection-id="f00a85c2-0735-4a71-b0df-c8bbda217e8d" assistant-type="SELECT_AI" default-profile-name="" selected-chat-id="" availability="UNAVAILABLE" acknowledgement="NONE">
         <tools />
       </assistant-state>
@@ -54,14 +60,18 @@
       <console name="Connection 3" type="STANDARD" schema="vehicle_db_q6gu" session="Main" />
     </connection>
     <connection id="d64ef52f-9dce-46c3-9e24-83bb93cbbe7c">
-      <console name="vehicle system" type="STANDARD" schema="vehicle_system" session="Main" />
+      <console name="vehicle system" type="STANDARD" schema="public" session="Main"><![CDATA[SELECT * FROM vehicle;
+SELECT * FROM customer;
+SELECT * FROM police_report;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="d64ef52f-9dce-46c3-9e24-83bb93cbbe7c" object-ref="consoles/vehicle system" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabasePrerequisiteManager">
     <prerequisites />
@@ -81,7 +91,9 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="POSTGRES" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

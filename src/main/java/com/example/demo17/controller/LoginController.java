@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -18,19 +17,19 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    @FXML private TextField         usernameField;
-    @FXML private PasswordField     passwordField;
-    @FXML private Button            loginButton;
-    @FXML private Label             statusLabel;
-    @FXML private ProgressIndicator loadingIndicator;
+    @FXML private TextField          usernameField;
+    @FXML private PasswordField      passwordField;
+    @FXML private Button             loginButton;
+    @FXML private Label              statusLabel;
+    @FXML private ProgressIndicator  loadingIndicator;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // DropShadow effect on login button
-        DropShadow shadow = new DropShadow(10, Color.DODGERBLUE);
+        // DropShadow on login button — assignment requirement
+        DropShadow shadow = new DropShadow(12, Color.web("#1b4332"));
         loginButton.setEffect(shadow);
 
-        // FadeTransition — continuously fades in and out
+        // FadeTransition on login button — assignment requirement
         FadeTransition fade = new FadeTransition(Duration.millis(1000), loginButton);
         fade.setFromValue(1.0);
         fade.setToValue(0.5);
@@ -40,6 +39,8 @@ public class LoginController implements Initializable {
 
         loadingIndicator.setVisible(false);
         statusLabel.setText("");
+
+        // Allow pressing Enter in password field to submit
         passwordField.setOnAction(e -> handleLogin());
     }
 
@@ -55,34 +56,43 @@ public class LoginController implements Initializable {
 
         loadingIndicator.setVisible(true);
         statusLabel.setText("Authenticating...");
+        loginButton.setDisable(true);
 
         new Thread(() -> {
             boolean success = authenticate(username, password);
             javafx.application.Platform.runLater(() -> {
                 loadingIndicator.setVisible(false);
+                loginButton.setDisable(false);
+
                 if (success) {
-                    statusLabel.setText("Login successful!");
-                    Stage stage = (Stage) loginButton.getScene().getWindow();
-                    SceneManager.setPrimaryStage(stage);
+                    statusLabel.setStyle("-fx-text-fill: #2d6a4f;");
+                    statusLabel.setText("Login successful! Loading dashboard...");
+                    System.out.println("✓ Login successful for: " + username);
                     SceneManager.switchScene("Dashboard", "Dashboard");
                 } else {
-                    statusLabel.setText("Invalid credentials.");
+                    statusLabel.setStyle("-fx-text-fill: #c0392b;");
+                    statusLabel.setText("Invalid credentials. Please try again.");
                     AlertHelper.showError("Login Failed", "Invalid username or password.");
+                    passwordField.clear();
+                    passwordField.requestFocus();
                 }
             });
         }).start();
     }
 
     private boolean authenticate(String username, String password) {
-        String sql = "SELECT COUNT(*) FROM admin_user WHERE username=? AND password=?";
-        try (PreparedStatement ps =
-                     DatabaseConnection.getInstance().getConnection().prepareStatement(sql)) {
+        String sql = "SELECT COUNT(*) FROM admin_user WHERE username = ? AND password = ?";
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) return rs.getInt(1) > 0;
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
         } catch (SQLException e) {
             System.err.println("[LoginController] Auth error: " + e.getMessage());
+            e.printStackTrace();
         }
         return false;
     }

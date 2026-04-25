@@ -3,33 +3,67 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.demo17.controller.LoginController"
-      alignment="CENTER" spacing="16"
-      style="-fx-background-color: #2c3e50;"
-      prefWidth="500" prefHeight="400">
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example.demo17.controller.LoginController"
+           styleClass="login-root">
 
-    <padding><Insets top="40" right="60" bottom="40" left="60"/></padding>
+    <VBox alignment="CENTER" styleClass="login-bg">
 
-    <!-- Test Button with inline style -->
-    <Button text="IF YOU SEE THIS GREEN BUTTON, STYLING WORKS!"
-            style="-fx-background-color: #3d5a73; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 6;"/>
+        <VBox alignment="CENTER" spacing="22" styleClass="login-card" maxWidth="480">
 
-    <Separator/>
+            <!-- HEADER -->
+            <VBox alignment="CENTER" spacing="6">
+                <Label text="🚗" style="-fx-font-size: 52px;"/>
+                <Label text="Vehicle Identification System" styleClass="login-title"/>
+                <Label text="Administrator Portal" styleClass="login-subtitle"/>
+            </VBox>
 
-    <Label text="Username:" textFill="white"/>
-    <TextField fx:id="usernameField" promptText="Enter username"
-               style="-fx-background-color: white; -fx-border-color: #d5d8dc; -fx-border-radius: 6; -fx-padding: 8 12;"/>
+            <Separator/>
 
-    <Label text="Password:" textFill="white"/>
-    <PasswordField fx:id="passwordField" promptText="Enter password"
-                   style="-fx-background-color: white; -fx-border-color: #d5d8dc; -fx-border-radius: 6; -fx-padding: 8 12;"/>
+            <!-- FORM -->
+            <GridPane hgap="15" vgap="14" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="90"/>
+                    <ColumnConstraints minWidth="260"/>
+                </columnConstraints>
 
-    <Button fx:id="loginButton" text="LOGIN" onAction="#handleLogin"
-            prefWidth="200"
-            style="-fx-background-color: #4a7c59; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                <Label text="Username" styleClass="login-field-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="usernameField"
+                           promptText="Enter your username"
+                           styleClass="login-field"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-    <Label fx:id="statusLabel" textFill="#4a7c59"/>
-    <ProgressIndicator fx:id="loadingIndicator" prefWidth="30" prefHeight="30"/>
-    <Label text="Default credentials: admin / admin123" textFill="#95a5a6" style="-fx-font-size: 11px;"/>
-</VBox>
+                <Label text="Password" styleClass="login-field-label"
+                       GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <PasswordField fx:id="passwordField"
+                               promptText="Enter your password"
+                               styleClass="login-field"
+                               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            </GridPane>
+
+            <!-- BUTTON -->
+            <Button fx:id="loginButton"
+                    text="LOGIN"
+                    onAction="#handleLogin"
+                    prefWidth="220"
+                    styleClass="login-button"/>
+
+            <!-- FEEDBACK -->
+            <ProgressIndicator fx:id="loadingIndicator"
+                               prefWidth="32" prefHeight="32"
+                               visible="false"/>
+
+            <Label fx:id="statusLabel" styleClass="login-status" text=""/>
+
+            <!-- HINT -->
+            <VBox alignment="CENTER" spacing="3">
+                <Label text="Default Credentials:"
+                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px;"/>
+                <Label text="Username: admin  |  Password: admin123"
+                       styleClass="login-hint"/>
+            </VBox>
+
+        </VBox>
+    </VBox>
+</StackPane>
