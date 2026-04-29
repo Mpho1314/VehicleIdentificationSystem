@@ -11,15 +11,15 @@ public class SceneManager {
 
     public static void switchScene(String fxmlName, String title) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    SceneManager.class.getResource("/fxml/" + fxmlName + ".fxml"));
-            Parent root = loader.load();
-
             Stage stage = (Stage) Window.getWindows()
                     .stream()
                     .filter(Window::isShowing)
                     .findFirst()
                     .orElseThrow();
+
+            FXMLLoader loader = new FXMLLoader(
+                    SceneManager.class.getResource("/fxml/" + fxmlName + ".fxml"));
+            Parent root = loader.load();
 
             Scene scene = new Scene(root,
                     stage.getScene().getWidth(),

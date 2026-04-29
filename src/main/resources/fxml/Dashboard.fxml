@@ -6,7 +6,6 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.demo17.controller.DashboardController"
             styleClass="root-pane"
-            stylesheets="/css/style.css"
             prefWidth="1000" prefHeight="700">
 
     <!-- TOP -->
@@ -17,7 +16,7 @@
                     <MenuItem text="User Access Management" onAction="#menuAdmin"/>
                 </Menu>
                 <Menu text="Help">
-                    <MenuItem text="About" onAction="#menuAbout"/>
+                    <MenuItem text="About"  onAction="#menuAbout"/>
                     <MenuItem text="Logout" onAction="#menuLogout"/>
                 </Menu>
             </MenuBar>
@@ -34,69 +33,85 @@
     <center>
         <VBox alignment="TOP_CENTER" spacing="0" styleClass="dashboard-root">
 
-            <!-- Small welcome banner -->
+            <!-- Welcome banner -->
             <VBox alignment="CENTER" spacing="8" styleClass="welcome-banner-small">
-                <Label text="Welcome to VIS" styleClass="welcome-title-small"/>
-                <Label text="Select a module below to get started" styleClass="welcome-subtitle-small"/>
+                <Label text="Welcome to Vehicle Management System" styleClass="welcome-title-small"/>
+                <Label text="Select a module below to get started"  styleClass="welcome-subtitle-small"/>
             </VBox>
 
-            <!-- Cards row - larger cards, no emojis -->
-            <HBox spacing="30" alignment="CENTER" styleClass="cards-row-large">
+            <!-- ROW 1: Vehicles, Customers, Workshop, Police, Admin -->
+            <HBox spacing="24" alignment="CENTER" styleClass="cards-row-large">
 
-                <!-- Vehicles - LARGER -->
-                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuVehicles">
-                    <Label text="VEHICLES" styleClass="card-title-large"/>
-                    <Separator styleClass="card-separator-large"/>
+                <VBox alignment="CENTER" spacing="15"
+                      styleClass="module-card-large" onMouseClicked="#menuVehicles">
+                    <Label text="VEHICLES"                          styleClass="card-title-large"/>
+                    <Separator                                       styleClass="card-separator-large"/>
                     <Label text="Manage vehicle records and registry" styleClass="card-subtitle-large"/>
                     <Button text="Open Module" onAction="#menuVehicles" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Customers - LARGER -->
-                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuCustomers">
-                    <Label text="CUSTOMERS" styleClass="card-title-large"/>
-                    <Separator styleClass="card-separator-large"/>
-                    <Label text="View and manage vehicle owners" styleClass="card-subtitle-large"/>
+                <VBox alignment="CENTER" spacing="15"
+                      styleClass="module-card-large" onMouseClicked="#menuCustomers">
+                    <Label text="CUSTOMERS"                         styleClass="card-title-large"/>
+                    <Separator                                       styleClass="card-separator-large"/>
+                    <Label text="View and manage vehicle owners"    styleClass="card-subtitle-large"/>
                     <Button text="Open Module" onAction="#menuCustomers" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Workshop - LARGER -->
-                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuWorkshop">
-                    <Label text="WORKSHOP" styleClass="card-title-large"/>
-                    <Separator styleClass="card-separator-large"/>
-                    <Label text="Service records and maintenance" styleClass="card-subtitle-large"/>
+                <VBox alignment="CENTER" spacing="15"
+                      styleClass="module-card-large" onMouseClicked="#menuWorkshop">
+                    <Label text="WORKSHOP"                          styleClass="card-title-large"/>
+                    <Separator                                       styleClass="card-separator-large"/>
+                    <Label text="Service records and maintenance"   styleClass="card-subtitle-large"/>
                     <Button text="Open Module" onAction="#menuWorkshop" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Police - LARGER -->
-                <VBox alignment="CENTER" spacing="15" styleClass="module-card-large" onMouseClicked="#menuPolice">
-                    <Label text="POLICE" styleClass="card-title-large"/>
-                    <Separator styleClass="card-separator-large"/>
-                    <Label text="Reports, violations and fines" styleClass="card-subtitle-large"/>
+                <VBox alignment="CENTER" spacing="15"
+                      styleClass="module-card-large" onMouseClicked="#menuPolice">
+                    <Label text="POLICE"                            styleClass="card-title-large"/>
+                    <Separator                                       styleClass="card-separator-large"/>
+                    <Label text="Reports, violations and fines"     styleClass="card-subtitle-large"/>
                     <Button text="Open Module" onAction="#menuPolice" styleClass="card-button-large"/>
                 </VBox>
 
-                <!-- Admin - LARGER -->
-                <VBox alignment="CENTER" spacing="15" styleClass="module-card-admin-large" onMouseClicked="#menuAdmin">
-                    <Label text="ADMIN" styleClass="card-title-admin-large"/>
-                    <Separator styleClass="card-separator-admin-large"/>
-                    <Label text="User access and permissions" styleClass="card-subtitle-admin-large"/>
+                <VBox alignment="CENTER" spacing="15"
+                      styleClass="module-card-admin-large" onMouseClicked="#menuAdmin">
+                    <Label text="ADMIN"                             styleClass="card-title-admin-large"/>
+                    <Separator                                       styleClass="card-separator-admin-large"/>
+                    <Label text="User access and permissions"       styleClass="card-subtitle-admin-large"/>
                     <Button text="Open Module" onAction="#menuAdmin" styleClass="card-button-admin-large"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- ROW 2: Insurance centered -->
+            <HBox spacing="0" alignment="CENTER"
+                  style="-fx-padding: 24 0 0 0;">
+                <VBox alignment="CENTER" spacing="15"
+                      styleClass="module-card-large" onMouseClicked="#menuInsurance">
+                    <Label text="INSURANCE"                         styleClass="card-title-large"/>
+                    <Separator                                       styleClass="card-separator-large"/>
+                    <Label text="Vehicle insurance tracking"        styleClass="card-subtitle-large"/>
+                    <Button text="Open Module" onAction="#menuInsurance" styleClass="card-button-large"/>
                 </VBox>
             </HBox>
 
             <!-- Stats row -->
             <HBox spacing="0" alignment="CENTER" styleClass="stats-row-centered">
-                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS" styleClass="stat-box-left">
-                    <Label text="Vehicle Registry" styleClass="stat-title"/>
-                    <Label text="Track all registered vehicles in Lesotho" styleClass="stat-subtitle"/>
+                <VBox alignment="CENTER" spacing="4"
+                      HBox.hgrow="ALWAYS" styleClass="stat-box-left">
+                    <Label text="Vehicle Registry"                          styleClass="stat-title"/>
+                    <Label text="Track all registered vehicles in Lesotho"  styleClass="stat-subtitle"/>
                 </VBox>
-                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS" styleClass="stat-box-center">
-                    <Label text="Police Integration" styleClass="stat-title"/>
-                    <Label text="Instant access to violation records" styleClass="stat-subtitle"/>
+                <VBox alignment="CENTER" spacing="4"
+                      HBox.hgrow="ALWAYS" styleClass="stat-box-center">
+                    <Label text="Police Integration"                        styleClass="stat-title"/>
+                    <Label text="Instant access to violation records"       styleClass="stat-subtitle"/>
                 </VBox>
-                <VBox alignment="CENTER" spacing="4" HBox.hgrow="ALWAYS" styleClass="stat-box-right">
-                    <Label text="Owner Management" styleClass="stat-title"/>
-                    <Label text="Customer and ownership records" styleClass="stat-subtitle"/>
+                <VBox alignment="CENTER" spacing="4"
+                      HBox.hgrow="ALWAYS" styleClass="stat-box-right">
+                    <Label text="Owner Management"                          styleClass="stat-title"/>
+                    <Label text="Customer and ownership records"            styleClass="stat-subtitle"/>
                 </VBox>
             </HBox>
 
@@ -109,7 +124,8 @@
         <HBox spacing="12" styleClass="status-bar">
             <Label text="System Ready" styleClass="status-text"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Label text="Vehicle Identification System | Limkokwing University | OOP II 2026" style="-fx-text-fill: #5a7a9e; -fx-font-size: 11px;"/>
+            <Label text="Vehicle Identification System  |  Limkokwing University  |  OOP II 2026"
+                   style="-fx-text-fill: #5a7a9e; -fx-font-size: 11px;"/>
         </HBox>
     </bottom>
 

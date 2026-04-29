@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.demo17.controller.InsuranceController"
+            prefWidth="1000" prefHeight="680">
+
+    <!-- TOP -->
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT"
+              style="-fx-background-color: #1b4332; -fx-padding: 14 20;">
+            <Button text="Back to Dashboard" onAction="#goBack"
+                    style="-fx-background-color: #40916c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+            <Label text="Insurance Module"
+                   style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
+        </HBox>
+    </top>
+
+    <!-- CENTER -->
+    <center>
+        <SplitPane dividerPositions="0.60">
+
+            <!-- LEFT: Table -->
+            <VBox spacing="10" style="-fx-padding: 16; -fx-background-color: #f8faf8;">
+                <Label text="Insurance Records"
+                       style="-fx-text-fill: #1b4332; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+
+                <TableView fx:id="insuranceTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colReg"      text="Reg. No."    prefWidth="110"/>
+                        <TableColumn fx:id="colPolicy"   text="Policy No."  prefWidth="110"/>
+                        <TableColumn fx:id="colProvider" text="Provider"    prefWidth="120"/>
+                        <TableColumn fx:id="colStart"    text="Start Date"  prefWidth="100"/>
+                        <TableColumn fx:id="colEnd"      text="End Date"    prefWidth="100"/>
+                        <TableColumn fx:id="colPremium"  text="Premium (LSL)" prefWidth="110"/>
+                        <TableColumn fx:id="colStatus"   text="Status"      prefWidth="90"/>
+                    </columns>
+                </TableView>
+
+                <ProgressBar fx:id="progressBar" prefWidth="100000" prefHeight="10"/>
+
+                <HBox spacing="10">
+                    <Button text="Delete Record" onAction="#handleDelete"
+                            style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+
+            <!-- RIGHT: Form -->
+            <VBox spacing="10" style="-fx-padding: 16; -fx-background-color: #f0f4f0;">
+                <Label text="New Insurance Record"
+                       style="-fx-text-fill: #1b4332; -fx-font-size: 15px; -fx-font-weight: bold;"/>
+                <Separator/>
+
+                <Label text="Vehicle *"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <ComboBox fx:id="vehicleCombo" prefWidth="100000"
+                          promptText="Select vehicle"/>
+
+                <Label text="Policy Number *"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <TextField fx:id="policyField"
+                           promptText="e.g. POL-2026-001"/>
+
+                <Label text="Provider * (letters only)"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <TextField fx:id="providerField"
+                           promptText="e.g. Lesotho Insurance"/>
+
+                <Label text="Premium Amount (LSL) *"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <TextField fx:id="premiumField"
+                           promptText="e.g. 1500.00"/>
+
+                <Label text="Start Date (today only)"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <DatePicker fx:id="startDatePicker"/>
+
+                <Label text="End Date (future date only)"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <DatePicker fx:id="endDatePicker"/>
+
+                <Label text="Status"
+                       style="-fx-text-fill: #1b4332; -fx-font-weight: bold;"/>
+                <ComboBox fx:id="statusCombo" prefWidth="100000"/>
+
+                <HBox spacing="10">
+                    <Button text="Save Record" onAction="#handleSave"
+                            style="-fx-background-color: #1b4332; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 6; -fx-cursor: hand;"
+                            HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Clear" onAction="#handleClear"
+                            style="-fx-background-color: #52796f; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 24; -fx-background-radius: 6; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+        </SplitPane>
+    </center>
+
+    <!-- BOTTOM -->
+    <bottom>
+        <HBox style="-fx-background-color: #1b4332; -fx-padding: 10 20;">
+            <Label fx:id="statusLabel" text="Ready"
+                   style="-fx-text-fill: #95d5b2; -fx-font-size: 12px;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Insurance Module  |  VIS v1.0"
+                   style="-fx-text-fill: #52796f; -fx-font-size: 11px;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

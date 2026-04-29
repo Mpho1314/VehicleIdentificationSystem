@@ -13,9 +13,8 @@
 
             <!-- HEADER -->
             <VBox alignment="CENTER" spacing="6">
-                <Label text="🚗" style="-fx-font-size: 52px;"/>
+                <Label text=" " style="-fx-font-size: 52px;"/>
                 <Label text="Vehicle Identification System" styleClass="login-title"/>
-                <Label text="Administrator Portal" styleClass="login-subtitle"/>
             </VBox>
 
             <Separator/>
@@ -56,13 +55,6 @@
 
             <Label fx:id="statusLabel" styleClass="login-status" text=""/>
 
-            <!-- HINT -->
-            <VBox alignment="CENTER" spacing="3">
-                <Label text="Default Credentials:"
-                       style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px;"/>
-                <Label text="Username: admin  |  Password: admin123"
-                       styleClass="login-hint"/>
-            </VBox>
 
         </VBox>
     </VBox>

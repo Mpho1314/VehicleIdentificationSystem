@@ -12,7 +12,7 @@
     <top>
         <HBox spacing="12" alignment="CENTER_LEFT" styleClass="top-bar">
             <Button text="← Back" onAction="#goBack" styleClass="secondary-button"/>
-            <Label text="🔧 Workshop — Service Records" styleClass="top-bar-title"/>
+            <Label text=" Workshop — Service Records" styleClass="top-bar-title"/>
             <Region HBox.hgrow="ALWAYS"/>
             <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"/>
         </HBox>
@@ -52,7 +52,7 @@
                 <TextArea fx:id="descField" prefHeight="80" promptText="Service details..."/>
 
                 <HBox spacing="8">
-                    <Button text="💾 Save" onAction="#handleSave" styleClass="primary-button"/>
+                    <Button text=" Save" onAction="#handleSave" styleClass="primary-button"/>
                     <Button text="✕ Clear" onAction="#handleClear" styleClass="secondary-button"/>
                 </HBox>
 

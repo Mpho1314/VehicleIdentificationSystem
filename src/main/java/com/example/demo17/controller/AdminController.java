@@ -5,6 +5,7 @@ import com.example.demo17.model.SystemUser;
 import com.example.demo17.util.AlertHelper;
 import com.example.demo17.util.SceneManager;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +22,6 @@ import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
 
-    // ── Table ─────────────────────────────────────────────────────────────
     @FXML private TableView<SystemUser>            userTable;
     @FXML private TableColumn<SystemUser, Integer> colId;
     @FXML private TableColumn<SystemUser, String>  colUsername;
@@ -30,17 +30,14 @@ public class AdminController implements Initializable {
     @FXML private TableColumn<SystemUser, String>  colAccess;
     @FXML private TableColumn<SystemUser, String>  colDate;
 
-    // ── Form ──────────────────────────────────────────────────────────────
     @FXML private TextField        usernameField;
     @FXML private PasswordField    passwordField;
     @FXML private ComboBox<String> roleCombo;
 
-    // ── Buttons ───────────────────────────────────────────────────────────
     @FXML private Button grantButton;
     @FXML private Button denyButton;
     @FXML private Button addButton;
 
-    // ── Status ────────────────────────────────────────────────────────────
     @FXML private Label             statusLabel;
     @FXML private Label             codeLabel;
     @FXML private ProgressIndicator progressIndicator;
@@ -54,10 +51,14 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         setupTable();
         setupEffects();
+        setupValidation();
 
-        roleCombo.setItems(FXCollections.observableArrayList(
-                "WORKSHOP", "CUSTOMER", "POLICE", "INSURANCE"));
-        roleCombo.setValue("CUSTOMER");
+        // Use Platform.runLater to ensure ComboBox is ready
+        Platform.runLater(() -> {
+            roleCombo.setItems(FXCollections.observableArrayList(
+                    "WORKSHOP", "CUSTOMER", "POLICE", "INSURANCE"));
+            roleCombo.getSelectionModel().selectFirst();
+        });
 
         progressIndicator.setVisible(false);
         progressBar.setProgress(0);
@@ -75,6 +76,15 @@ public class AdminController implements Initializable {
         loadUsers();
     }
 
+    private void setupValidation() {
+        // Username: letters, numbers, underscore only
+        usernameField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("[a-zA-Z0-9_]*")) {
+                usernameField.setText(oldVal);
+            }
+        });
+    }
+
     private void setupTable() {
         colId.setCellValueFactory(new PropertyValueFactory<>("userId"));
         colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -83,7 +93,6 @@ public class AdminController implements Initializable {
         colAccess.setCellValueFactory(new PropertyValueFactory<>("access"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
-        // Color rows green/red based on access
         userTable.setRowFactory(tv -> new TableRow<SystemUser>() {
             @Override
             protected void updateItem(SystemUser user, boolean empty) {
@@ -102,15 +111,12 @@ public class AdminController implements Initializable {
     }
 
     private void setupEffects() {
-        // DropShadow on grant button
         DropShadow grantShadow = new DropShadow(12, Color.GREEN);
         grantButton.setEffect(grantShadow);
 
-        // DropShadow on deny button
         DropShadow denyShadow = new DropShadow(12, Color.RED);
         denyButton.setEffect(denyShadow);
 
-        // FadeTransition on add button
         FadeTransition fade = new FadeTransition(Duration.millis(1000), addButton);
         fade.setFromValue(1.0);
         fade.setToValue(0.5);
@@ -126,7 +132,7 @@ public class AdminController implements Initializable {
         new Thread(() -> {
             try {
                 List<SystemUser> list = adminDAO.getAllUsers();
-                javafx.application.Platform.runLater(() -> {
+                Platform.runLater(() -> {
                     userList.setAll(list);
                     userTable.setItems(userList);
                     statusLabel.setText(list.size() + " users loaded.");
@@ -134,10 +140,10 @@ public class AdminController implements Initializable {
                     progressBar.setProgress(1.0);
                 });
             } catch (Exception e) {
-                javafx.application.Platform.runLater(() -> {
+                Platform.runLater(() -> {
                     progressIndicator.setVisible(false);
                     progressBar.setProgress(0);
-                    AlertHelper.showError("Error", e.getMessage());
+                    AlertHelper.showError("Load Error", e.getMessage());
                 });
             }
         }).start();
@@ -150,8 +156,36 @@ public class AdminController implements Initializable {
             String password = passwordField.getText().trim();
             String role     = roleCombo.getValue();
 
-            if (username.isEmpty() || password.isEmpty()) {
-                AlertHelper.showWarning("Validation", "Username and password are required.");
+            // Validations
+            if (username.isEmpty()) {
+                AlertHelper.showWarning("Validation", "Username is required.");
+                return;
+            }
+            if (username.length() < 3) {
+                AlertHelper.showWarning("Validation",
+                        "Username must be at least 3 characters.");
+                return;
+            }
+            if (password.isEmpty()) {
+                AlertHelper.showWarning("Validation", "Password is required.");
+                return;
+            }
+            if (password.length() < 4) {
+                AlertHelper.showWarning("Validation",
+                        "Password must be at least 4 characters.");
+                return;
+            }
+            if (role == null || role.isEmpty()) {
+                AlertHelper.showWarning("Validation",
+                        "Please select a Role / Module.");
+                return;
+            }
+
+            // Check duplicate before insert
+            if (adminDAO.usernameExists(username)) {
+                AlertHelper.showWarning("Duplicate Username",
+                        "The username '" + username + "' already exists.\n"
+                                + "Please choose a different username.");
                 return;
             }
 
@@ -162,17 +196,22 @@ public class AdminController implements Initializable {
 
             String generatedCode = adminDAO.addUser(u);
             if (generatedCode != null) {
-                codeLabel.setText("✅ User created! Access Code: " + generatedCode
-                        + "  — Share this code with the user.");
+                codeLabel.setText("User created! Access Code: " + generatedCode
+                        + " — Share this with the user.");
                 statusLabel.setText("User '" + username + "' added successfully.");
                 usernameField.clear();
                 passwordField.clear();
                 loadUsers();
             } else {
-                AlertHelper.showError("Error", "Could not create user. Username may already exist.");
+                AlertHelper.showError("Database Error",
+                        "Failed to insert user.\n"
+                                + "Check the IntelliJ console for the exact SQL error.");
             }
+
         } catch (Exception e) {
-            AlertHelper.showError("Error", e.getMessage());
+            AlertHelper.showError("Unexpected Error",
+                    e.getClass().getSimpleName() + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -184,7 +223,7 @@ public class AdminController implements Initializable {
         }
         boolean ok = adminDAO.grantAccess(selectedUser.getUserId());
         statusLabel.setText(ok
-                ? "✅ Access GRANTED for: " + selectedUser.getUsername()
+                ? "Access GRANTED for: " + selectedUser.getUsername()
                 : "Failed to grant access.");
         if (ok) loadUsers();
     }
@@ -197,7 +236,7 @@ public class AdminController implements Initializable {
         }
         boolean ok = adminDAO.denyAccess(selectedUser.getUserId());
         statusLabel.setText(ok
-                ? "🚫 Access DENIED for: " + selectedUser.getUsername()
+                ? "Access DENIED for: " + selectedUser.getUsername()
                 : "Failed to deny access.");
         if (ok) loadUsers();
     }
@@ -205,20 +244,28 @@ public class AdminController implements Initializable {
     @FXML
     private void handleDelete() {
         if (selectedUser == null) {
-            AlertHelper.showWarning("No Selection", "Please select a user to delete.");
+            AlertHelper.showWarning("No Selection",
+                    "Please select a user to delete.");
             return;
         }
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Delete user " + selectedUser.getUsername() + "?",
+                "Delete user '" + selectedUser.getUsername() + "'?",
                 ButtonType.YES, ButtonType.NO);
         confirm.showAndWait().ifPresent(btn -> {
             if (btn == ButtonType.YES) {
                 boolean ok = adminDAO.deleteUser(selectedUser.getUserId());
                 statusLabel.setText(ok ? "User deleted." : "Delete failed.");
-                if (ok) { selectedUser = null; codeLabel.setText(""); loadUsers(); }
+                if (ok) {
+                    selectedUser = null;
+                    codeLabel.setText("Select a user to view their access code");
+                    loadUsers();
+                }
             }
         });
     }
 
-    @FXML private void goBack() { SceneManager.switchScene("Dashboard", "Dashboard"); }
+    @FXML
+    private void goBack() {
+        SceneManager.switchScene("Dashboard", "Dashboard");
+    }
 }
